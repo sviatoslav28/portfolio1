@@ -1,0 +1,856 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bayer Sviatoslav - Personal portfolio</title>
+<meta name="description" content="Personal portfolio of Bayer Sviatoslav, a junior frontend developer, graphic designer, and UX/UI designer. Showcasing skills in web development, cloud solutions, and design.">
+<link rel="icon" href="photos/favic.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="favic.jpg">
+<link rel="icon" type="image/jpeg" sizes="128x128" href="photos/favic.jpg">
+<link rel="icon" type="image/jpeg" sizes="64x64" href="photos/favic.jpg">
+<link rel="icon" type="image/jpeg" sizes="32x32" href="photos/favic.jpg">
+<link rel="icon" type="image/jpeg" sizes="16x16" href="photos/favic.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3B82F6',secondary:'#93C5FD'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  /* overflow-y: auto;  обычно не нужно, но можно добавить */
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+scroll-behavior: smooth;
+}
+.gradient-bg {
+background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+}
+.gradient-btn {
+background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+}
+.card-shadow {
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+input:focus, textarea:focus {
+outline: none;
+border-color: #3B82F6;
+}
+input[type="checkbox"] {
+appearance: none;
+-webkit-appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #D1D5DB;
+border-radius: 4px;
+margin-right: 8px;
+position: relative;
+}
+input[type="checkbox"]:checked {
+background-color: #3B82F6;
+border-color: #3B82F6;
+}
+input[type="checkbox"]:checked::after {
+content: "";
+position: absolute;
+top: 3px;
+left: 6px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+/* Home (hero-section): старая анимация снизу вверх */
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(40px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+.section-animate-home {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: none;
+}
+.section-animate-home.visible {
+  animation: fade-in-up 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* About: появление с легким масштабированием и размытием */
+@keyframes fade-in-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(30px);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-4px);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+.section-animate-about {
+  opacity: 0;
+  transform: scale(0.96) translateY(30px);
+  filter: blur(6px);
+  transition: none;
+}
+.section-animate-about.visible {
+  animation: fade-in-scale 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Works: появление справа */
+@keyframes fade-in-right {
+  0% { opacity: 0; transform: translateX(60px);}
+  100% { opacity: 1; transform: translateX(0);}
+}
+.section-animate-works {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: none;
+}
+.section-animate-works.visible {
+  animation: fade-in-right 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Contact: появление с увеличением и прозрачностью */
+@keyframes fade-in-zoom {
+  0% { opacity: 0; transform: scale(0.92);}
+  100% { opacity: 1; transform: scale(1);}
+}
+.section-animate-contact {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: none;
+}
+.section-animate-contact.visible {
+  animation: fade-in-zoom 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes preloader-bar {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+.animate-preloader-bar {
+  width: 0;
+  animation: preloader-bar 2s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes work-fade-in-up {
+  0% { opacity: 0; transform: translateY(40px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+.work-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: none;
+  border: 1.5px solid #e5eaf5; /* очень светлая рамка */
+}
+.work-animate.visible {
+  animation: work-fade-in-up 0.8s cubic-bezier(.4,0,.2,1) forwards;
+}
+@media (max-width: 768px) {
+  .section-animate-home,
+  .section-animate-about,
+  .section-animate-works,
+  .section-animate-contact,
+  .work-animate,
+  .about-card,
+  .about-whoiam-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}
+
+/* Только для ПК: эффект выделения карточки и размытия остальных, включая Who I Am */
+@media (min-width: 1024px) {
+  .about-cards-group,
+  .about-cards-group-with-whoiam {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+  }
+  .about-cards-group-with-whoiam > .about-whoiam-card {
+    width: 370px;
+    min-width: 320px;
+    max-width: 100%;
+  }
+  .about-cards-group-with-whoiam > .grid {
+    flex: 1 1 0%;
+    min-width: 0;
+  }
+  /* Сначала размытие всех карточек при наведении на контейнер */
+  #about:hover .about-card,
+  #about:hover .about-whoiam-card {
+    filter: blur(5px) grayscale(30%) !important;
+    transition: filter 0.3s, box-shadow 0.3s;
+  }
+
+  .about-cards-group-with-whoiam .about-card:hover,
+  .about-cards-group-with-whoiam .about-whoiam-card:hover,
+  #about:hover .about-card:hover,
+  #about:hover .about-whoiam-card:hover {
+    filter: none !important;
+    box-shadow: 0 8px 32px 0 rgba(59,130,246,0.18), 0 1.5px 8px 0 rgba(59,130,246,0.10);
+    border-color: #3B82F6;
+    z-index: 1;
+    transition: filter 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+}
+@keyframes about-fade-in {
+  0% { opacity: 0; transform: translateY(40px); filter: blur(6px);}
+  100% { opacity: 1; transform: translateY(0); filter: blur(0);}
+}
+.about-card,
+.about-whoiam-card {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(6px);
+  transition: none;
+}
+.about-card.visible,
+.about-whoiam-card.visible {
+  animation: about-fade-in 1s cubic-bezier(.4,0,.2,1) forwards;
+}
+.gradient-btn,
+.bg-white.text-primary.border {
+  transition: 
+    box-shadow 0.25s cubic-bezier(.4,0,.2,1),
+    transform 0.18s cubic-bezier(.4,0,.2,1),
+    background 0.25s cubic-bezier(.4,0,.2,1),
+    color 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+.gradient-btn:hover {
+  box-shadow: 0 0 16px 4px #60A5FA88, 0 4px 24px 0 #3B82F655;
+  transform: scale(1.06) translateY(-2px);
+  background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+}
+
+.bg-white.text-primary.border:hover {
+  box-shadow: 0 0 16px 4px #3B82F655;
+  transform: scale(1.06) translateY(-2px);
+  background: #f0f7ff;
+  color: #2563eb;
+  border-color: #2563eb;
+}
+#stars-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.star-sparkle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.6; /* 60% прозрачности */
+  background: linear-gradient(135deg, #185dff 50%, #ffff32 50%);
+  box-shadow: 0 0 12px 2px #60A5FA55, 0 0 24px 4px #3B82F622;
+  animation: sparkle 1.2s ease-out forwards;
+  transform: rotate(45deg); /* ромбик */
+}
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0.4) rotate(45deg);}
+  10% { opacity: 0.3; transform: scale(1.2) rotate(45deg);}
+  30% { opacity: 0.3; transform: scale(1) rotate(45deg);}
+  80% { opacity: 0.25; }
+  100% { opacity: 0; transform: scale(0.7) rotate(45deg);}
+}
+
+#logo-link {
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  color: #3B82F6;
+  transition: background 0.3s, color 0.3s;
+}
+
+#hero-name :hover {
+  background: linear-gradient(to bottom, #3B82F6 55%, #FFD600 45%);
+  background-size: 100% 200%;
+  background-position: top;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  transition: background-position 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+#hero-name:not(.gradient-active) {
+  background-position: bottom;
+}
+
+.contact-bg-anim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.contact-bg-bubble {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.18;
+  filter: blur(2px);
+  animation: contact-bubble-move linear forwards;
+  will-change: transform, opacity;
+}
+@keyframes contact-bubble-move {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.15);
+  }
+}
+</style>
+
+<body class="bg-white min-h-screen">
+<!-- Preloader -->
+<div id="preloader" class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center">
+    <span class="text-3xl md:text-5xl font-['Pacifico'] text-primary mb-8 animate-fade-in-up">Sviatoslav Bayer</span>
+    <div class="w-64 h-3 bg-blue-100 rounded-full overflow-hidden">
+        <div id="preloader-bar" class="h-full bg-primary rounded-full animate-preloader-bar"></div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<a href="#hero-section" class="text-2xl font-['Pacifico'] text-primary cursor-pointer" id="logo-link">Sviatoslav Bayer</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center space-x-8">
+    <a href="#hero-section" class="text-gray-600 hover:text-primary transition-colors duration-200 ">Home</a>
+    <a href="#about" class="text-gray-600 hover:text-primary transition-colors duration-200">About me</a>
+    <a href="#works" class="text-gray-600 hover:text-primary transition-colors duration-200">My works</a>
+    <a href="#contact" class="text-gray-600 hover:text-primary transition-colors duration-200">Contact</a>
+</nav>
+
+<!-- Mobile Navigation Toggle -->
+<div class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer" id="mobileMenuToggle">
+    <i class="ri-menu-line ri-lg text-gray-700"></i>
+</div>
+</div>
+
+<!-- Mobile Navigation Menu -->
+<div class="md:hidden hidden bg-white shadow-md" id="mobileMenu">
+    <div class="container mx-auto px-4 py-2 flex flex-col space-y-4">
+        <nav id="mobileNav" class="flex flex-col">
+            <a href="#hero-section" class="text-gray-600 hover:text-primary transition-colors duration-200 py-2 border-b border-gray-100 ">Home</a>
+            <a href="#about" class="text-gray-600 hover:text-primary transition-colors duration-200 py-2 border-b border-gray-100">About me</a>
+            <a href="#works" class="text-gray-600 hover:text-primary transition-colors duration-200 py-2 border-b border-gray-100">My works</a>
+            <a href="#contact" class="text-gray-600 hover:text-primary transition-colors duration-200 py-2">Contact</a>
+        </nav>
+    </div>
+</div>
+</header>
+
+<!-- Main Content -->
+<main class="pt-16 md:pt-20 lg:pt-24">
+
+    <!-- Hero Section -->
+    <section class="bg-white py-20 md:py-32 section-animate-home relative overflow-hidden" id="hero-section">
+        <div id="stars-bg"><div class="star-sparkle" style="left: 88.6865%; top: 12.73%; width: 11.6588px; height: 11.6588px; animation-duration: 1308.04ms;"></div><div class="star-sparkle" style="left: 80.0314%; top: 7.87873%; width: 8.04463px; height: 8.04463px; animation-duration: 1201.62ms;"></div><div class="star-sparkle" style="left: 98.6769%; top: 80.9428%; width: 8.3047px; height: 8.3047px; animation-duration: 1765.75ms;"></div><div class="star-sparkle" style="left: 99.2488%; top: 84.7167%; width: 15.1334px; height: 15.1334px; animation-duration: 1531.04ms;"></div><div class="star-sparkle" style="left: 47.8694%; top: 99.8328%; width: 11.1121px; height: 11.1121px; animation-duration: 1588.25ms;"></div></div>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
+                    Hello, I'm <br><span class="text-primary" id="hero-name">Sviatoslav Bayer</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                   A motivated learner with a strong passion for mathematics, game development, programming and visual design. I combine creative UX/UI thinking with logical problem-solving to build engaging digital experiences. I am always ready to learn new technologies and improve my skills in web development and design.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+<a href="#contact" class="gradient-btn text-white py-3 px-8 rounded-button font-medium shadow-md hover:shadow-lg transition-shadow duration-200 whitespace-nowrap text-center">Get in Touch</a>
+<a href="#works" class="bg-white text-primary border border-primary py-3 px-8 rounded-button font-medium hover:bg-blue-50 transition-colors duration-200 whitespace-nowrap text-center">View My Works</a>
+</div>
+</div>
+<div class="w-full md:w-1/2 flex justify-center md:justify-end pr-0 md:pr-4 lg:pr-8">
+<img src="photos/photo1.jpg" alt="Sviatoslav Bayer" class="rounded-full w-64 h-64 object-cover object-top shadow-lg">
+</div>
+</div>
+    </section>
+<div class="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+<!-- About Me Section -->
+<section id="about" class="py-20 gradient-bg section-animate-about">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8">About Me</h2>
+    <h4 class="text-lg md:text-xl text-center text-gray-600 mb-12">Hover on a card to read info</h4>
+    <div class="about-cards-group-with-whoiam flex flex-col lg:flex-row gap-8">
+      <div class="bg-white rounded-lg p-8 card-shadow h-full about-whoiam-card border border-transparent mb-8 lg:mb-0">
+        <!-- Who I Am контент -->
+        <div class="flex flex-col items-center">
+<div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-user-smile-line ri-2x text-primary"></i>
+</div>
+<h3 class="text-2xl font-semibold text-gray-800 mb-4">Who I Am</h3>
+<p class="text-gray-600 text-center leading-relaxed">
+I am a 16 years old motivated and curious junior frontend developer from Dnipro, Ukraine with a strong background in UX/UI design and graphic design. I enjoy creating user-friendly, visually appealing websites and continuously improving my skills. Currently I am looking forward to start learning Unreal Engine 5 because of my interest in math and physics. Also, I can speak four languages: Ukrainian and Russian (native), English (upper intermediate) and German (A2). I am always eager to learn new technologies and improve my skills in web development and design.
+</p>
+</div>
+        <!-- Конец Who I Am контента -->
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-1">
+        <div class="bg-white rounded-lg p-8 card-shadow about-card border border-transparent">
+          <div class="flex items-center mb-6">
+<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+<i class="ri-code-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800">Development and design</h3>
+</div>
+<p class="text-gray-600 leading-relaxed">
+Focused on web development using modern tools and technologies like HTML, CSS, and JavaScript. Despite that I also continue to explore UX/UI and graphic design to enhance my overall skill set and create more holistic digital experiences.
+</p>
+        </div>
+        <div class="bg-white rounded-lg p-8 card-shadow about-card border border-transparent">
+          <div class="flex items-center mb-6">
+<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+<i class="ri-cloud-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800">Cloud Solutions</h3>
+</div>
+<p class="text-gray-600 leading-relaxed">
+Currently exploring cloud platforms and deployment tools to understand how modern web applications are hosted and scaled. Interested in learning about services like GitHub Pages, Vercel, and Netlify for personal and professional projects.
+</p>
+        </div>
+        <div class="bg-white rounded-lg p-8 card-shadow about-card border border-transparent">
+          <div class="flex items-center mb-6">
+<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+<i class="ri-team-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800">Leadership</h3>
+</div>
+<p class="text-gray-600 leading-relaxed">
+While still early in my journey, I believe in teamwork and collaborative learning. I sometimes participate in online communities, share what I learn, and seek feedback to grow faster and support others.
+</p>
+        </div>
+        <div class="bg-white rounded-lg p-8 card-shadow about-card border border-transparent">
+          <div class="flex items-center mb-6">
+<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+<i class="ri-lightbulb-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800">Innovation</h3>
+</div>
+<p class="text-gray-600 leading-relaxed">
+I love trying new tools and ideas. Working with animations, modern design systems, and interactive elements helps me build creative, engaging websites and visuals that feel alive and exciting to use.
+</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+<!-- Work Examples Section -->
+<section id="works" class="py-20 bg-white section-animate-works">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8">My creations</h2>
+        <h4 class="text-lg md:text-xl text-center text-gray-600 mb-12">Better work viewing and other works are coming soon!</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Первый блок -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/lg-f.jpg" alt="Project 1" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Frontend Development</h3>
+                    <p class="text-gray-600 mb-4">Smooth login form with validation and error handling, focused on minimalism and usability</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">HTML</span>
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">CSS</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Второй блок -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/lp.jpg" alt="Project 2" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Landing Page</h3>
+                    <p class="text-gray-600 mb-4">A modern landing page design for a "Logitech", focused on clean UI and high conversion.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Figma</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Третий блок -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/Logo-f.jpg" alt="Project 3" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Graphic design</h3>
+                    <p class="text-gray-600 mb-4">Two black-and-white examples of logotypes for my own brand, focused on simplicity and versatility.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Adobe Illustrator</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Четвертый блок (новый) -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/conf.jpg" alt="Project 4" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Frontend Development</h3>
+                    <p class="text-gray-600 mb-4">A modern contact page with simplistic design for a tech company, focusing on user interaction.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">HTML</span>
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">CSS</span>
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Figma</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Пятый блок (новый) -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/messanger.jpg" alt="Project 5" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Messenger App Concept</h3>
+                    <p class="text-gray-600 mb-4">A concept design for a messenger app with focus on clean interface with white and black theme</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Figma</span>
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">UX/UI</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Шестой блок (новый) -->
+            <div class="bg-white rounded-lg overflow-hidden card-shadow group hover:shadow-xl transition-shadow duration-300 work-animate">
+                <div class="relative h-48">
+                    <img src="photos/visit.jpg" alt="Project 6" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Visiting card</h3>
+                    <p class="text-gray-600 mb-4">A set of branding visiting cards as an example for my company, created with a focus on elegance.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Adobe Illustrator</span>
+                        <span class="px-3 py-1 bg-blue-100 text-primary text-sm rounded-full">Adobe Photoshop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+<!-- Contact Section -->
+
+<section id="contact" class="py-20 gradient-bg section-animate-contact">
+  <div class="contact-bg-anim pointer-events-none"><div class="contact-bg-bubble" style="width: 66.2186px; height: 66.2186px; left: 85.6532%; bottom: 63.3045%; background: rgba(203, 213, 225, 0.5); animation-duration: 6795.87ms;"></div><div class="contact-bg-bubble" style="width: 82.1126px; height: 82.1126px; left: 9.75011%; bottom: 53.7532%; background: rgba(147, 197, 253, 0.7); animation-duration: 5519.68ms;"></div><div class="contact-bg-bubble" style="width: 41.7252px; height: 41.7252px; left: 96.0074%; bottom: 45.9476%; background: rgba(96, 165, 250, 0.7); animation-duration: 6676.73ms;"></div><div class="contact-bg-bubble" style="width: 25.0396px; height: 25.0396px; left: 98.4032%; bottom: 45.3945%; background: rgba(59, 130, 246, 0.7); animation-duration: 4451.91ms;"></div><div class="contact-bg-bubble" style="width: 69.8475px; height: 69.8475px; left: 95.2444%; bottom: 94.8161%; background: rgba(59, 130, 246, 0.7); animation-duration: 4167.89ms;"></div><div class="contact-bg-bubble" style="width: 59.0409px; height: 59.0409px; left: 89.1289%; bottom: 26.1047%; background: rgba(59, 130, 246, 0.7); animation-duration: 5775.99ms;"></div><div class="contact-bg-bubble" style="width: 29.6069px; height: 29.6069px; left: 86.9336%; bottom: 60.9364%; background: rgba(203, 213, 225, 0.5); animation-duration: 3625.3ms;"></div><div class="contact-bg-bubble" style="width: 54.0523px; height: 54.0523px; left: 92.1395%; bottom: 88.8755%; background: rgba(203, 213, 225, 0.5); animation-duration: 4603.18ms;"></div><div class="contact-bg-bubble" style="width: 28.3613px; height: 28.3613px; left: 94.1573%; bottom: 52.9721%; background: rgba(96, 165, 250, 0.7); animation-duration: 6170.08ms;"></div><div class="contact-bg-bubble" style="width: 87.3024px; height: 87.3024px; left: 86.0812%; bottom: 40.716%; background: rgba(203, 213, 225, 0.5); animation-duration: 5206.65ms;"></div><div class="contact-bg-bubble" style="width: 27.0676px; height: 27.0676px; left: 95.5795%; bottom: 50.962%; background: rgba(59, 130, 246, 0.7); animation-duration: 5709.75ms;"></div><div class="contact-bg-bubble" style="width: 56.2503px; height: 56.2503px; left: 9.20248%; bottom: 66.0543%; background: rgba(147, 197, 253, 0.7); animation-duration: 5250.8ms;"></div><div class="contact-bg-bubble" style="width: 69.4962px; height: 69.4962px; left: 95.0859%; bottom: 53.1482%; background: rgba(203, 213, 225, 0.5); animation-duration: 4392.65ms;"></div><div class="contact-bg-bubble" style="width: 46.4922px; height: 46.4922px; left: 13.8594%; bottom: 77.9427%; background: rgba(96, 165, 250, 0.7); animation-duration: 5631.04ms;"></div><div class="contact-bg-bubble" style="width: 64.31px; height: 64.31px; left: 13.0915%; bottom: 21.885%; background: rgba(203, 213, 225, 0.5); animation-duration: 4729.88ms;"></div><div class="contact-bg-bubble" style="width: 52.032px; height: 52.032px; left: 5.56046%; bottom: 27.296%; background: rgba(203, 213, 225, 0.5); animation-duration: 3660.11ms;"></div></div>
+  <div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-16">Get in Touch</h2>
+<div class="max-w-4xl mx-auto">
+<div class="bg-white rounded-lg p-8 card-shadow">
+<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+     <input type="hidden" name="access_key" value="3162c063-3cda-42fc-b7fc-99c083b126a6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+<input type="text" id="name" name="name" placeholder="Enter your name" minlength="3" autocomplete="off" class="w-full px-4 py-2 border border-gray-300 rounded-button focus:border-primary" required="">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+<input type="email" id="email" name="email" placeholder="Enter your email" class="w-full px-4 py-2 border border-gray-300 rounded-button focus:border-primary" required="">
+</div>
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+<input type="text" id="subject" name="subject" placeholder="Enter your subject" autocomplete="off" class="w-full px-4 py-2 border border-gray-300 rounded-button focus:border-primary" required="">
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+<textarea id="message" name="message" rows="6" placeholder="Enter your message" minlength="20" maxlength="150" class="w-full px-4 py-2 border border-gray-300 rounded-button focus:border-primary" required=""></textarea>
+</div>
+<div class="flex justify-end gap-4">
+    <button type="reset" class="bg-gray-100 text-gray-700 border border-gray-300 py-3 px-8 rounded-button font-medium hover:bg-gray-200 transition-colors duration-200">
+        Reset
+    </button>
+    <button type="submit" class="gradient-btn text-white py-3 px-8 rounded-button font-medium shadow-md hover:shadow-lg transition-shadow duration-200">
+        Send email
+    </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+
+<footer class="bg-gray-800 text-white py-12">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<div class="mb-8 md:mb-0">
+<p class="text-2xl font-['Pacifico'] text-white">Sviatoslav Bayer</p>
+<p class="mt-2 text-gray-400">Frontend Developer &amp; UX/UI Designer &amp; Graphic Designer</p>
+</div>
+<div class="flex flex-col items-center md:items-end">
+<div class="flex space-x-4 mb-4">
+    <a href="https://www.linkedin.com/in/sviatoslav-bayer-14a90134a/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-700 hover:bg-primary rounded-full transition-colors duration-200" aria-label="LinkedIn">
+        <i class="ri-linkedin-fill ri-lg text-white"></i>
+    </a>
+    <a href="https://wa.me/380991780169" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-700 hover:bg-primary rounded-full transition-colors duration-200" aria-label="WhatsApp">
+        <i class="ri-whatsapp-fill ri-lg text-white"></i>
+    </a>
+    <a href="https://telegram.me/DesireJust" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-700 hover:bg-primary rounded-full transition-colors duration-200" aria-label="Telegram">
+        <i class="ri-telegram-fill ri-lg text-white"></i>
+    </a>
+    <a href="https://www.instagram.com/sviatoslav.bayer" target="_blank" rel="noopener noreferrer" class="w-10 h-10 flex items-center justify-center bg-gray-700 hover:bg-primary rounded-full transition-colors duration-200" aria-label="Instagram">
+        <i class="ri-instagram-fill ri-lg text-white"></i>
+    </a>
+</div>
+<p class="text-gray-400">© 2025 Sviatoslav Bayer. Glory to Ukraine. All rights reserved.</p>
+</div>
+</div>
+</div>
+</footer>
+<!-- Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 70;
+
+    // --- Управление мобильным меню ---
+    function toggleMobileMenu(forceClose = false) {
+        const icon = mobileMenuToggle.querySelector('i');
+        const isHidden = mobileMenu.classList.contains('hidden');
+
+        if (forceClose || !isHidden) {
+            mobileMenu.classList.add('hidden');
+            icon.classList.remove('ri-close-line');
+            icon.classList.add('ri-menu-line');
+        } else {
+            mobileMenu.classList.remove('hidden');
+            icon.classList.remove('ri-menu-line');
+            icon.classList.add('ri-close-line');
+        }
+    }
+
+    mobileMenuToggle.addEventListener('click', () => toggleMobileMenu());
+
+    // --- Управление активными ссылками ---
+    const navLinks = document.querySelectorAll('header nav a[href^="#"], #mobileNav a[href^="#"]');
+    function setActiveLink(targetId) {
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === targetId) {
+                link.classList.add('text-primary');
+                link.classList.remove('text-gray-600');
+            } else {
+                link.classList.remove('text-primary');
+                link.classList.add('text-gray-600');
+            }
+        });
+    }
+
+    
+
+    // --- Динамическая подсветка при прокрутке ---
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+    window.addEventListener('scroll', function() {
+        const scrollY = window.scrollY;
+        let currentSectionId = '#hero-section';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerHeight - 50; // Доп. отступ для точности
+            if (scrollY >= sectionTop) {
+                currentSectionId = '#' + section.id;
+            }
+        });
+        
+        setActiveLink(currentSectionId);
+    });
+
+    // --- Инициализация при загрузке страницы ---
+    function initializePage() {
+        // По требованию, всегда начинаем с секции #home при загрузке.
+        
+        // 1. Убираем любой существующий хэш из URL, чтобы избежать путаницы.
+        if (history.replaceState) {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+        } else {
+            // Старый метод для старых браузеров
+            window.location.hash = '';
+        }
+
+        // 2. Прокручиваем страницу в самый верх.
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        
+      
+    }
+    
+    initializePage();
+});
+</script>
+
+
+<script>
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Логика, выполняемая после загрузки страницы ---
+
+    // 1. Управление прелоадером
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.transition = 'opacity 0.5s';
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 2000);
+    }
+
+    // 2. Анимация для секции Home и эффект печатания (после прелоадера)
+    const heroSection = document.getElementById('hero-section');
+    const heroName = document.getElementById('hero-name');
+    setTimeout(() => {
+        if (heroSection) heroSection.classList.add('visible');
+        if (heroName) {
+            const fullText = 'Sviatoslav Bayer';
+            let i = 0;
+            heroName.textContent = '';
+            function typeWriter() {
+                if (i < fullText.length) {
+                    heroName.textContent += fullText[i];
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            }
+            typeWriter();
+        }
+    }, 2000); // Задержка равна времени работы прелоадера
+
+    // 3. Единый IntersectionObserver для всех анимируемых секций
+    const animationObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                target.classList.add('visible');
+
+                // Запуск вложенных анимаций для дочерних элементов
+                if (target.id === 'about') {
+                    target.querySelectorAll('.about-card, .about-whoiam-card').forEach((card, i) => {
+                        setTimeout(() => card.classList.add('visible'), i * 120);
+                    });
+                } else if (target.id === 'works') {
+                    target.querySelectorAll('.work-animate').forEach((block, i) => {
+                        setTimeout(() => block.classList.add('visible'), i * 180);
+                    });
+                }
+                
+                observer.unobserve(target); // Отключаем наблюдение после срабатывания
+            }
+        });
+    }, { threshold: 0.2 }); // Порог срабатывания 20%
+
+    // Назначаем наблюдение за всеми секциями, которые должны анимироваться
+    document.querySelectorAll('.section-animate-about, .section-animate-works, .section-animate-contact').forEach(section => {
+        if (section) {
+            animationObserver.observe(section);
+        }
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Очистка формы "Contact" при загрузке страницы
+    const contactForm = document.querySelector('#contact form');
+    if (contactForm) {
+        contactForm.reset();
+    }
+});
+</script>
+<script>
+window.addEventListener('resize', function() {
+    // Если ширина меньше 1024px — убираем фильтры и тени у карточек about
+    if (window.innerWidth < 1024) {
+        document.querySelectorAll('.about-card, .about-whoiam-card').forEach(card => {
+            card.style.filter = '';
+            card.style.boxShadow = '';
+            card.style.borderColor = '';
+        });
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const starsBg = document.getElementById('stars-bg');
+  function spawnStar() {
+    if (!starsBg) return;
+    const star = document.createElement('div');
+    star.className = 'star-sparkle';
+
+    // Генерируем координаты вне центральной области
+    let x, y;
+    do {
+      x = Math.random() * 100;
+    } while (x > 49 && x < 51);
+    do {
+      y = Math.random() * 100;
+    } while (y > 20 && y < 80); // 20% сверху и снизу, чтобы не в центре
+
+    star.style.left = x + '%';
+    star.style.top = y + '%';
+
+    // Случайный размер (ромбики)
+    const size = 7 + Math.random() * 10;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+
+    // Случайная задержка исчезновения
+    const duration = 900 + Math.random() * 900;
+    star.style.animationDuration = duration + 'ms';
+    starsBg.appendChild(star);
+    setTimeout(() => {
+      star.remove();
+    }, duration);
+  }
+  // Больше звёздочек: запускаем сразу несколько и уменьшаем интервал
+  function randomStars() {
+    for (let i = 0; i < 2; i++) spawnStar();
+    setTimeout(randomStars, 400 + Math.random() * 350);
+  }
+  randomStars();
+});
+</script>
+
+</body></html>
